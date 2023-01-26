@@ -36,7 +36,7 @@ public class TableUtil
     }
 
     /// <summary> 内部包装类 </summary>
-    private class Pack<T>
+    private class Pack<T>//todo translate
     {
         public T data;
     }

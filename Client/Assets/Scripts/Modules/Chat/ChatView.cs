@@ -24,7 +24,7 @@ public class ChatView : SingletonMonoBehaviour<ChatView>
     {
         Debug.Log("OnClickChatBtn");
         AddChatItem(inputField.text);
-        ChatModel.Instance.CTosChat("客户端", inputField.text);
+        ChatModel.Instance.CTosChat("Client", inputField.text);
     }
 
     public void AddChatItem(string content)

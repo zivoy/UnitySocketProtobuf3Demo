@@ -264,3 +264,4 @@ public class SocketClient
         buffer.Close();
     }
 }
+//todo translate

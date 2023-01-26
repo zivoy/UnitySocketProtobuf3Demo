@@ -54,7 +54,7 @@ namespace Net
         }
 
         /// <summary>
-        /// 发送链接请求
+        /// Send connection request
         /// </summary>
         public void SendConnect()
         {
@@ -70,7 +70,7 @@ namespace Net
         }
 
         /// <summary>
-        /// 发送SOCKET消息
+        /// Send SOCKET message
         /// </summary>
         public void SendMessage(ByteBuffer buffer)
         {
@@ -78,13 +78,13 @@ namespace Net
         }
 
         /// <summary>
-        /// 发送SOCKET消息
+        /// Send SOCKET message
         /// </summary>
         public void SendMessage(IMessage obj)
         {
             if (!ProtoDic.ContainProtoType(obj.GetType()))
             {
-                Debug.LogError("不存协议类型");
+                Debug.LogError("Not a compatible protocol");
                 return;
             }
             ByteBuffer buff = new ByteBuffer();
@@ -107,19 +107,19 @@ namespace Net
         }
 
         /// <summary>
-        /// 连接 
+        /// Connected 
         /// </summary>
         public void OnConnect()
         {
-            Debug.Log("======连接========");
+            Debug.Log("======Connected========");
         }
 
         /// <summary>
-        /// 断开连接
+        /// Disconnected
         /// </summary>
         public void OnDisConnect()
         {
-            Debug.Log("======断开连接========");
+            Debug.Log("======Disconnected========");
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Net
         {
             if (!ProtoDic.ContainProtoId(protoId))
             {
-                Debug.LogError("未知协议号");
+                Debug.LogError("Unknown protocol id");
                 return;
             }
             Type protoType = ProtoDic.GetProtoTypeByProtoId(protoId);
@@ -179,5 +179,5 @@ namespace Net
             }
         }
     }
-
+//todo translate
 }

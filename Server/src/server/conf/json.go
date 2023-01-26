@@ -3,7 +3,7 @@ package conf
 import (
 	"encoding/json"
 	"github.com/name5566/leaf/log"
-	"io/ioutil"
+	"os"
 )
 
 var Server struct {
@@ -19,7 +19,7 @@ var Server struct {
 }
 
 func init() {
-	data, err := ioutil.ReadFile("conf/server.json")
+	data, err := os.ReadFile("conf/server.json")
 	if err != nil {
 		log.Fatal("%v", err)
 	}

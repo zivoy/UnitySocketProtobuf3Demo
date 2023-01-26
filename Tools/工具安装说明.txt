@@ -1,3 +1,6 @@
+https://github.com/protocolbuffers/protobuf/releases/latest
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+
 以windows为例，工具代码全是python的，可以自己写对应平台批处理来支持其他平台。
 1.python的安装
 windows
