@@ -1,8 +1,8 @@
 package gate
 
 import (
-	"server/game"
-	"server/msg"
+	"unityDemoServer/src/server/game"
+	"unityDemoServer/src/server/msg"
 )
 
 func init() {

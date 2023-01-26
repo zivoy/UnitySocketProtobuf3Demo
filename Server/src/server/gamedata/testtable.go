@@ -20,6 +20,6 @@ func  TestTableinit() {
     }
 }
 
-func GetDataByID(id int) (TestTable) {
+func GetTestTableByID(id int) (TestTable) {
 	return  TestTableData[id]
 }

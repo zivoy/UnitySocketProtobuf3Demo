@@ -1,49 +1,49 @@
 import os
 
-import xlrd
+import pandas as pd
 
-from TableCode.cs_data import GenCSTableData
 from TableCode.cs_file import GenCSTableManagerFile, genCSLoadTablesFile
-from TableCode.go_data import GenGolangTableData
+from TableCode.data_file import GenTableData
 from TableCode.go_file import GenGoTableManagerFile, genGolangLoadTablesFile
 from const import excel_dir
+
 
 def processExcel(filePath, fileName):
     if "." in fileName:
         fileName = fileName.split('.')
         fileName = fileName[0]
-    data = xlrd.open_workbook(filePath)
-    table = data.sheets()[0]
-    nrows = table.nrows
-    ncols = table.ncols
+    data = pd.read_excel(filePath)  # index_col=0
+    nrows = len(data.index)
+    ncols = len(data.columns)
 
-    cs_fields_index = []#filed index
-    golang_fields_index = []#filed index
-    tableKeysIndex = []
-
-    if table.nrows == 0 or table.ncols == 0:
+    if nrows == 0 or ncols == 0:
         print("empty file:" + fileName)
+        return
 
-    for index in range(ncols):
-        CS_row = table.cell(1, index).value
-        if CS_row == "C" or CS_row == "CS":
-            cs_fields_index.append(index)
+    cs_fields_index = ((data.iloc[0] == "C") | (data.iloc[0] == "CS")).values
+    golang_fields_index = ((data.iloc[0] == "S") | (data.iloc[0] == "CS")).values
 
-        if CS_row == "S" or CS_row == "CS":
-            golang_fields_index.append(index)
+    goHeader = data.loc[1:2, golang_fields_index]
+    csHeader = data.loc[1:2, cs_fields_index]
+
+    goData = data.iloc[3:, golang_fields_index]
+    csData = data.iloc[3:, cs_fields_index]
 
     if len(cs_fields_index) > 0:
         cs_files.append(fileName)
-        GenCSTableManagerFile(fileName, cs_fields_index, table)
-        GenCSTableData(fileName, cs_fields_index, table)
+        GenCSTableManagerFile(fileName, csHeader)
+        GenTableData(fileName, None, csData)
 
     if len(golang_fields_index) > 0:
         go_files.append(fileName)
-        GenGoTableManagerFile(fileName, golang_fields_index, table)
-        GenGolangTableData(fileName, golang_fields_index, table)
+        GenGoTableManagerFile(fileName, goHeader)
+        GenTableData(fileName, goHeader, goData)
+
 
 cs_files = []
 go_files = []
+
+
 def excel_start():
     excels = []
     for dir in os.listdir(excel_dir):  # 遍历当前目录所有文件和目录

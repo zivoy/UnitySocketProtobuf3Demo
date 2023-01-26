@@ -5,7 +5,7 @@ import (
 	"github.com/name5566/leaf/gate"
 	"github.com/name5566/leaf/log"
 	"reflect"
-	"server/msg"
+	"unityDemoServer/src/server/msg"
 )
 
 func init() {
@@ -23,8 +23,9 @@ func handleTosChat(args []interface{}) {
 	a := args[1].(gate.Agent)
 
 	// 输出收到的消息的内容
-	log.Debug("hello %v", m.Name)
-	fmt.Println("hello %v", m.Name)
+	greetings := fmt.Sprintf("hello %v", m.Name)
+	log.Debug(greetings)
+	fmt.Println(greetings)
 	var err gate.Agent = nil
 	if a != err {
 		fmt.Println(" != nil")

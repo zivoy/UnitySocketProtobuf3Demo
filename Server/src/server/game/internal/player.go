@@ -2,12 +2,12 @@ package internal
 
 import (
 	"github.com/name5566/leaf/gate"
-	"github.com/name5566/leaf/timer"
 	"github.com/name5566/leaf/go"
-	"server/msg"
 	"github.com/name5566/leaf/log"
-	"time"
+	"github.com/name5566/leaf/timer"
 	"github.com/name5566/leaf/util"
+	"time"
+	"unityDemoServer/src/server/msg"
 )
 
 var (
@@ -15,7 +15,7 @@ var (
 )
 
 const (
-	userLogin  = iota
+	userLogin = iota
 	userLogout
 	userGame
 )

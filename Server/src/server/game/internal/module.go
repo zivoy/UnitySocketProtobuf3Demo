@@ -2,7 +2,7 @@ package internal
 
 import (
 	"github.com/name5566/leaf/module"
-	"server/base"
+	"unityDemoServer/src/server/base"
 )
 
 var (
@@ -13,7 +13,6 @@ var (
 type Module struct {
 	*module.Skeleton
 }
-
 
 func (m *Module) OnInit() {
 	m.Skeleton = skeleton
@@ -26,8 +25,6 @@ func InitGameTables() {
 	//db:=mysql.MysqlDB()
 	//db.AutoMigrate(&PlayerBaseInfo{})
 }
-
-
 
 func (m *Module) OnDestroy() {
 

@@ -1,7 +1,7 @@
 package login
 
 import (
-	"server/login/internal"
+	"unityDemoServer/src/server/login/internal"
 )
 
 var (

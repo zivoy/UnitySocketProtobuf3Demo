@@ -1,1 +1,1 @@
-python3 gen_table_data.py
+python gen_table_data.py

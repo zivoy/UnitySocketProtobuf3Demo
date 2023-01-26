@@ -1,7 +1,7 @@
 from const import cs_table_file_dir
 
 
-def GenCSTableManagerFile(tableName, fieldsIndex, table):
+def GenCSTableManagerFile(tableName, data):
     filePath = cs_table_file_dir + tableName + ".cs"
 
     fileContent = ""
@@ -17,12 +17,14 @@ def GenCSTableManagerFile(tableName, fieldsIndex, table):
     fileContent += \
         'public class ' + tableName + "\n"
     fileContent += "{\n"
-    for index in fieldsIndex:
-        fieldtype = table.cell(2, index).value
+
+    ncolls = len(data.columns)
+    for index in range(ncolls):
+        fieldtype = data.iloc[0, index]
         fieldtype = fieldtype.lower()
         if fieldtype == "Map[String]Int".lower():
             fieldtype = "Dictionary<string,int>"
-        fieldName = table.cell(3, index).value
+        fieldName = data.iloc[1, index]
         fileContent += \
             "    public " + fieldtype + " " + fieldName + ";\n"
 
@@ -33,12 +35,12 @@ def GenCSTableManagerFile(tableName, fieldsIndex, table):
     fileContent += \
         "        string[] fileds = line.Split('\t');\n"
 
-    for index in fieldsIndex:
-        fieldtype = table.cell(2, index).value
+    for index in range(ncolls):
+        fieldtype = data.iloc[0, index]
         fieldtype = fieldtype.lower()
         # if fieldtype == "Map[String]Int".lower():
         #     fieldtype = "public Dictionary<string,int>"
-        fieldName = table.cell(3, index).value
+        fieldName =  data.iloc[1, index]
         index = str(index)
         if fieldtype == "int[]".lower():
             fileContent += \
@@ -85,7 +87,7 @@ def GenCSTableManagerFile(tableName, fieldsIndex, table):
             {
                 ''' + tableName + ' rowData = new ' + tableName + '(line);\n'''
     fileContent += \
-    "                data.Add(rowData."+ table.cell(3, 0).value + ", rowData);\n"
+    "                data.Add(rowData."+  data.iloc[1, 0] + ", rowData);\n"
     fileContent += \
         '''            }
             else
@@ -96,7 +98,7 @@ def GenCSTableManagerFile(tableName, fieldsIndex, table):
         }
     }\n\n'''
 
-    keyType = table.cell(2, 0).value
+    keyType =data.iloc[0, 0]
     fileContent += \
         '''    public ''' + tableName + ''' GetDataByID(''' + keyType.lower() + ''' id)\n'''
     fileContent += \
@@ -106,7 +108,7 @@ def GenCSTableManagerFile(tableName, fieldsIndex, table):
         return rowData;
     }\n\n'''
 
-    keyType = table.cell(2, 1).value
+    keyType = data.iloc[0, 1]
     fileContent += \
         '''    public ''' + tableName + ''' GetDataByName(''' + keyType.lower() + ''' name)\n'''
     fileContent += \
